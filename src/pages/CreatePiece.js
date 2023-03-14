@@ -50,6 +50,10 @@ function CreatePiece() {
   const [authenticate, setAuthincate] = useState(false);
   const [userData, setUserData] = useState({});
   useEffect(() => {
+    if (localStorage.getItem("fromPage") != "" && localStorage.getItem("listingId") !="") {
+         navigate("/buy");
+       }
+
     fetch(process.env.REACT_APP_BACKEND_URL, {
       method: "GET",
       credentials: "include",

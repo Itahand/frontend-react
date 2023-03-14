@@ -17,13 +17,13 @@ function Login() {
   const navigate = useNavigate();
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   useEffect(() => {
-    if (localStorage.getItem("fromPage") == "landing") {
-      localStorage.setItem("fromPage", "");
-      navigate("/createPiece");
-    } else if (localStorage.getItem("fromPage") == "login") {
-      localStorage.setItem("fromPage", "");
-      navigate("/buy");
-    }
+    // if (localStorage.getItem("fromPage") == "landing") {
+    //   localStorage.setItem("fromPage", "");
+    //   navigate("/createPiece");
+    // } else if (localStorage.getItem("fromPage") == "login") {
+    //   localStorage.setItem("fromPage", "");
+    //   navigate("/buy");
+    // }
   }, []);
   return (
     <>
@@ -43,7 +43,7 @@ function Login() {
 
         <motion.div variants={fadeInUp}
           onClick={() => {
-            localStorage.setItem("fromPage", "login");
+            //localStorage.setItem("fromPage", "login");
             window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK, "_self");
           }}
           className=" flex cursor-pointer -mb-5 transition-all ease-out shadow-lg mt-6 mx-auto gap-3 border-2 rounded-md border-slate-900 w-96 pl-24  py-4 hover:scale-105"

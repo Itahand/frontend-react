@@ -15,14 +15,14 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/createPiece" element={<CreatePiece />} />
-          <Route path="/pieces" element={<Pieces />} />
-          <Route path="/listing" element={<Listing />} />
-          <Route path="/buy" element={<Buy />} />
-          <Route path="/purchase" element={<Purchase />} />
-          <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/createPiece" element={<CreatePiece />} />
+        <Route path="/pieces" element={<Pieces />} />
+        <Route path="/listing/:listingId" element={<Listing />} />
+        <Route path="/buy" element={<Buy />} />
+        <Route path="/purchase" element={<Purchase/>} />
+        <Route path="/login" element={<Login/>} />
         </Routes>
       </Router>
     </>

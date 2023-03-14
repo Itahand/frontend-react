@@ -120,7 +120,11 @@ function Menu() {
 
 
                     <div className=" lg:w-fit lg:mx-auto  w-full  h-[6vh]  flex justify-center ">
-                        <button onClick={()=> window.open(process.env.REACT_APP_LOGOUT_LINK, "_self")} className="border border-[#312E2A] rounded w-full  mt-0  font-bold lg:px-10">
+                        <button onClick={()=> {
+                            localStorage.setItem("fromPage","")
+                            localStorage.setItem("listingId","")
+                            window.open(process.env.REACT_APP_LOGOUT_LINK, "_self")
+                            }} className="border border-[#312E2A] rounded w-full  mt-0  font-bold lg:px-10">
                             Log out
                         </button>
                     </div>
