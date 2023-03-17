@@ -2,31 +2,59 @@ import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import twitter from "../assets/twitter.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { fadeInDown, fadeInUp, staggerContainer } from "./variants";
 
-function Login() {
-  const [input, setInput] = useState("");
+function Login() { 
+  
+  const [authenticate, setAuthincate] = useState(false);
 
-  const [magicLink, setMagicLink] = useState(false);
-  const inputHandler = (event) => [
-    setInput(event.target.value),
-    setMagicLink(true),
-  ];
+ 
   const navigate = useNavigate();
+  let { state,location } = useLocation();
+  const [newState ,setNewState] = useState({})
+
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   useEffect(() => {
-    // if (localStorage.getItem("fromPage") == "landing") {
-    //   localStorage.setItem("fromPage", "");
-    //   navigate("/createPiece");
-    // } else if (localStorage.getItem("fromPage") == "login") {
-    //   localStorage.setItem("fromPage", "");
-    //   navigate("/buy");
-    // }
+
+    if(!state){
+      setNewState( {to:"/createPiece",listingId:0})
+    }else{
+      setNewState( {to:state.to,listingId:state.listingId})
+    }
+    fetch(process.env.REACT_APP_BACKEND_URL, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("failed to authenticate user");
+      })
+      .then((responseJson) => {
+        setAuthincate(true); 
+        console.log(state)
+        console.log(location)
+    
+        
+        if(state=="listing"){
+          navigate("/buy/"+state.listingId)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+
+        
+      });
   }, []);
   return (
     <>
+   
       <motion.div
         variants={staggerContainer}
         initial="initial"
@@ -43,8 +71,8 @@ function Login() {
 
         <motion.div variants={fadeInUp}
           onClick={() => {
-            //localStorage.setItem("fromPage", "login");
-            window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK, "_self");
+
+            window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK+"?returnTo="+newState.to+"&listingId="+newState.listingId, "_self");
           }}
           className=" flex cursor-pointer -mb-5 transition-all ease-out shadow-lg mt-6 mx-auto gap-3 border-2 rounded-md border-slate-900 w-96 pl-24  py-4 hover:scale-105"
         >
@@ -52,6 +80,7 @@ function Login() {
           <p className=" font-opensans font-semibold">Sign in with Twitter</p>
         </motion.div>
       </motion.div>
+      
     </>
   );
 }

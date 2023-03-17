@@ -63,8 +63,7 @@ function Landing() {
               
         <button
           onClick={() => {
-            // localStorage.setItem("fromPage", "landing");
-            // window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK, "_self");
+             
           }}
           className=" w-fit font-opensans my-10 ml-6 rounded-sm bg-opacity-70 px-6 py-2 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 "
         >
@@ -81,7 +80,7 @@ function Landing() {
       {isTabletOrMobile && <motion.div variants={fadeInUp} className="flex justify-center mt-6">
         <button
           onClick={() => {
-             localStorage.setItem("fromPage", "landing");
+
              window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK, "_self");
           }}
           className=" w-fit font-opensans mx-auto rounded-md bg-opacity-70 px-32 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 "
@@ -291,7 +290,7 @@ function Landing() {
         <motion.div className="flex justify-center mt-6">
           <button
             onClick={() => {
-               //localStorage.setItem("fromPage", "landing");
+
                window.open(
                  process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK,
                  "_self"
@@ -317,11 +316,7 @@ function Landing() {
         <div className="flex justify-center mt-12 ml-4">
           <button
             onClick={() => {
-              // localStorage.setItem("fromPage", "landing");
-              // window.open(
-              //   process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK,
-              //   "_self"
-              // );
+        
             }}
             className=" w-fit mx-auto rounded-md bg-opacity-70 px-14 py-3 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 font-opensans"
           >

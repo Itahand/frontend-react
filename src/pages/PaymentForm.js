@@ -56,8 +56,7 @@ export default function PaymentForm({amount,listingId,twitterId}) {
                     console.log("Successful Payment");
                     setSuccess(true);
                     setTimeout(()=>{
-                        localStorage.setItem("fromPage","")
-                        localStorage.setItem("listingId","")
+                    
                         navigate('/purchase',{ state: { listingId: listingId } })
                     },2000)
                 }

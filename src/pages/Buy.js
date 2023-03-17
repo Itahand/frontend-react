@@ -3,7 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import nft from "../assets/mock_piece.png";
 import apple2 from "../assets/apple2.png";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentForm from "./PaymentForm";
@@ -17,6 +17,9 @@ function Buy() {
   const navigate = useNavigate();
   const [authenticate, setAuthincate] = useState(false);
   const [userData, setUserData] = useState({});
+
+  let { id } = useParams();
+  let { state } = useLocation();
   useEffect(() => {
     fetch(process.env.REACT_APP_BACKEND_URL, {
       method: "GET",
@@ -34,14 +37,14 @@ function Buy() {
       .then((responseJson) => {
         setAuthincate(true);
         setUserData(responseJson.user);
-        const listingId = localStorage.getItem("listingId");
+        const listingId = id;
         console.log(listingId)
         fetchPieceDetails(listingId);
       })
       .catch((error) => {
         console.log(error);
-
-        navigate("/login");
+        console.log(state)
+        navigate("/login",{ state: { from: 'listing',to:'buy',listingId:id } })
       });
    
   }, []);

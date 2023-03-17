@@ -136,11 +136,8 @@ function Listing() {
                   >
                    <button
                 onClick={() => {
-                
-                      localStorage.setItem("fromPage", "buy");
-                      localStorage.setItem("listingId", listingId);
-                      
-                  navigate("/buy")
+                 
+                  navigate("/buy/"+listingId,{ state: { from: 'listing',to:'buy',listingId:listingId } })
                 }}
                 className=" hover:scale-105 transition-all ease-out font-opensans w-fit mx-auto rounded-md bg-opacity-70 py-3 w-full hover:bg-opacity-100 text-stone-200 bg-fadeochre"
               >
@@ -200,10 +197,10 @@ function Listing() {
               <button
                 onClick={() => {
                 
-                  localStorage.setItem("fromPage", "buy");
-                  localStorage.setItem("listingId", listingId);
+                 
                   
-              navigate("/buy")
+             
+                  navigate("/buy/"+listingId,{ state: { from: 'listing',to:'buy',listingId:listingId } })
             }}
                 className=" hover:scale-105 transition-all ease-out font-opensans w-fit mx-auto rounded-md bg-opacity-70 px-36 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre"
               >
