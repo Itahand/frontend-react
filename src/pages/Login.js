@@ -12,17 +12,12 @@ function Login() {
 
  
   const navigate = useNavigate();
-  let { state,location } = useLocation();
-  const [newState ,setNewState] = useState({})
+  let { state,location } = useLocation(); 
 
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   useEffect(() => {
 
-    if(!state){
-      setNewState( {to:"/createPiece",listingId:0})
-    }else{
-      setNewState( {to:state.to,listingId:state.listingId})
-    }
+    
     fetch(process.env.REACT_APP_BACKEND_URL, {
       method: "GET",
       credentials: "include",
@@ -72,7 +67,7 @@ function Login() {
         <motion.div variants={fadeInUp}
           onClick={() => {
 
-            window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK+"?returnTo="+newState.to+"&listingId="+newState.listingId, "_self");
+            window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK, "_self");
           }}
           className=" flex cursor-pointer -mb-5 transition-all ease-out shadow-lg mt-6 mx-auto gap-3 border-2 rounded-md border-slate-900 w-96 pl-24  py-4 hover:scale-105"
         >

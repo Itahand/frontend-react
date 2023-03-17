@@ -23,6 +23,8 @@ function Buy() {
   let { state } = useLocation();
   const [loading,setLoading]=useState(false);
   useEffect(() => {
+    
+
     setLoading(true);
     fetch(process.env.REACT_APP_BACKEND_URL, {
       method: "GET",
@@ -38,7 +40,7 @@ function Buy() {
         throw new Error("failed to authenticate user");
       })
       .then((responseJson) => {
-        setLoading(false)
+        sessionStorage.clear();
         setAuthincate(true);
         setUserData(responseJson.user);
         const listingId = id;
@@ -78,6 +80,8 @@ function Buy() {
             amount: responseJson.amount,
             image: responseJson.image,
           });
+          
+          setLoading(false)
         }
       })
       .catch((error) => {

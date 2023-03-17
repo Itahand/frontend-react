@@ -51,6 +51,10 @@ function CreatePiece() {
   const [authenticate, setAuthincate] = useState(false);
   const [userData, setUserData] = useState({});
   useEffect(() => {
+    console.log(sessionStorage)
+    if(sessionStorage.getItem("from")=="buy"){
+      navigate("/buy/"+sessionStorage.getItem("listingId"))
+    }
     setLoading(true);
     
 

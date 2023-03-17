@@ -13,7 +13,7 @@ function Listing() {
   });
   const [salesEnded, setSalesEnded] = useState(false);
   const [listingData, setListingData] = useState({});
-  const [loading,setLoading]=useState(false);
+  const [loading,setLoading]=useState(true);
   const navigate = useNavigate();
   let { listingId } = useParams();
   useEffect(() => {
@@ -24,7 +24,7 @@ function Listing() {
           document.querySelector('[name="twitter:title"]').setAttribute('content', "#"+listingId);
           document.querySelector('[property="og:image"]').setAttribute('content', ""+process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
           document.querySelector('[name="twitter:image"]').setAttribute('content', process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
-          setLoading(false)
+          
   }, []);
   const fetchPieceDetails = async () => {
     console.log(listingId);
@@ -63,7 +63,7 @@ function Listing() {
             image:responseJson.image,
             totalPiecesCollected:responseJson.totalPiecesCollected
           });
-          
+          setLoading(false)
         }
       })
       .catch((error) => {
@@ -104,7 +104,10 @@ function Listing() {
              
               variants={fadeInDown}
               className=" cursor-pointer hover:scale-105 ease-out transition-all"
-              onClick={() => navigate("/")}
+              onClick={() =>{  sessionStorage.setItem("from","buy")
+              sessionStorage.setItem("listingId",listingId)
+              navigate("/login")
+            }}
             >
               <p className=" font-opensans text-lg font-bold lg:mr-5">Log in</p>
             </motion.a>
@@ -146,8 +149,9 @@ function Listing() {
                   >
                    <button
                 onClick={() => {
-                 
-                  navigate("/buy/"+listingId,{ state: { from: 'listing',to:'buy',listingId:listingId } })
+                 sessionStorage.setItem("from","buy")
+                 sessionStorage.setItem("listingId",listingId)
+                  navigate("/buy/"+listingId);
                 }}
                 className=" hover:scale-105 transition-all ease-out font-opensans w-fit mx-auto rounded-md bg-opacity-70 py-3 w-full hover:bg-opacity-100 text-stone-200 bg-fadeochre"
               >
@@ -208,9 +212,9 @@ function Listing() {
                 onClick={() => {
                 
                  
-                  
-             
-                  navigate("/buy/"+listingId,{ state: { from: 'listing',to:'buy',listingId:listingId } })
+                  sessionStorage.setItem("from","buy")
+                  sessionStorage.setItem("listingId",listingId)
+                   navigate("/buy/"+listingId);
             }}
                 className=" hover:scale-105 transition-all ease-out font-opensans w-fit mx-auto rounded-md bg-opacity-70 px-36 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre"
               >
