@@ -16,6 +16,10 @@ module.exports = {
         opensans:['Open Sans']
       },
     },
+    screens: {
+      'es': '360px',
+      'ls': '688px',
+    }
   },
   plugins: [],
 }

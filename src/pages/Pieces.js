@@ -151,7 +151,7 @@ data-testid="loader"
 
               {pieceByMe.map((obj, i) => {
                    
-                 return <li key={i} className="w-full     flex border-[#D3C5B0] py-3 border-b    ">
+                 return <li key={i} className="w-full   flex-col  flex border-[#D3C5B0] py-3 border-b    ">
                     <div className=" leading-none row flex w-full font-Lora font-[400] text-[16px] ">
 
                       {obj.pieceText}

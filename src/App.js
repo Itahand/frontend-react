@@ -8,16 +8,13 @@ import Menu from "./pages/Menu";
 
 import Purchase from "./pages/Purchase";
 import Pieces from "./pages/Pieces";
-import Landing from "./pages/Landing";
-import { Context } from "./components/Context";
-import { useState } from "react";
+import Landing from "./pages/Landing"; 
 
 function App() {
-  const [context, setContext] = useState([]);
+
 
   return (
     <>
-      <Context.Provider value={[context, setContext]}>
       <Router>
         <Routes>
         <Route path="/" element={<Landing />} />
@@ -30,7 +27,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         </Routes>
       </Router>
-      </Context.Provider>
+
     </>
   );
 }

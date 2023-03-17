@@ -115,16 +115,16 @@ function Listing() {
         </div>
 
         {isTabletOrMobile && (
-          <motion.div variants={fadeInUp} className=" flex justify-center mt-6 p-5 overflow-hidden">
-            <img className="object-none h-[40vh] w-full  " src={listingData.image} alt="nft" />
-          </motion.div>
+          <div variants={fadeInUp} className=" flex object-none scale-150 transform-unset justify-center mt-6 p-5 overflow-hidden">
+            <img className="  w-full  " src={listingData.image} alt="nft" />
+          </div>
         )}
 
 
         {isDesktopOrLaptop && (
           <div className="flex gap-24 justify-center">
           <motion.div variants={fadeInUp} className=" flex justify-center mt-6 p-5 overflow-hidden">
-            <img className="object-none h-[40vh] w-full  " src={listingData.image} alt="nft" />
+            <img className="h-[40vh] w-full  " src={listingData.image} alt="nft" />
           </motion.div>
             <div>
             <motion.div

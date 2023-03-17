@@ -29,7 +29,7 @@ function Landing() {
   
   return (
     <motion.div variants={staggerContainer} initial="initial" animate="animate">
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         {isTabletOrMobile && <motion.div variants={fadeInDown} className="mt-5 ml-5">
           <img className="h-7 w-20" src={piece} alt="piece" />
         </motion.div>}
@@ -62,9 +62,10 @@ function Landing() {
               </p>
               
         <button
-          onClick={() => {
-             
-          }}
+           onClick={() => {
+
+            window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK, "_self");
+         }}
           className=" w-fit font-opensans my-10 ml-6 rounded-sm bg-opacity-70 px-6 py-2 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 "
         >
           Create a piece
@@ -83,7 +84,7 @@ function Landing() {
 
              window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK, "_self");
           }}
-          className=" w-fit font-opensans mx-auto rounded-md bg-opacity-70 px-32 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 "
+          className=" md:w-fit w-full ls:w-fit ls:px-[7rem]  mx-5 es:text-[0.9rem] es:px-10 rounded-md bg-opacity-70 px-32 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 font-opensans  "
         >
           Create a piece
         </button>
@@ -135,12 +136,12 @@ function Landing() {
           </p>
           <div className="flex gap-5 justify-center mt-5">
             <img
-              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg"
+              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg h-[10rem] w-[9.5rem]"
               src={pic1}
               alt="pic1"
             />
             <img
-              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg"
+              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg h-[10rem] w-[9.5rem]"
               src={pic2}
               alt="pic2"
             />
@@ -153,12 +154,12 @@ function Landing() {
           </p>
           <div className="flex gap-5 justify-center mt-5">
             <img
-              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg"
+              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg h-[10rem] w-[9.5rem]"
               src={pic3}
               alt="pic3"
             />
             <img
-              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg"
+              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg h-[10rem] w-[9.5rem]"
               src={pic4}
               alt="pic4"
             />
@@ -171,12 +172,12 @@ function Landing() {
           </p>
           <div className="flex gap-5 justify-center mt-5">
             <img
-              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg"
+              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg h-[10rem] w-[9.5rem]"
               src={pic5}
               alt="pic5"
             />
             <img
-              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg"
+              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg h-[10rem] w-[9.5rem]"
               src={pic6}
               alt="pic6"
             />
@@ -189,12 +190,12 @@ function Landing() {
           </p>
           <div className="flex gap-5 justify-center mt-5">
             <img
-              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg"
+              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg h-[10rem] w-[9.5rem]"
               src={pic7}
               alt="pic7"
             />
             <img
-              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg"
+              className="rounded-lg transition-all ease-out hover:scale-105 hover:shadow-lg h-[10rem] w-[9.5rem]"
               src={pic8}
               alt="pic8"
             />
@@ -296,7 +297,7 @@ function Landing() {
                  "_self"
                );
             }}
-            className=" w-fit mx-auto rounded-md bg-opacity-70 px-32 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 font-opensans"
+            className="  md:w-fit w-full ls:w-fit ls:px-[7rem]  mx-5 es:text-[0.9rem] es:px-10 rounded-md bg-opacity-70 px-32 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 font-opensans  "
           >
             Create a piece
           </button>
@@ -316,8 +317,9 @@ function Landing() {
         <div className="flex justify-center mt-12 ml-4">
           <button
             onClick={() => {
-        
-            }}
+
+              window.open(process.env.REACT_APP_TWITTER_AUTH_LOGIN_LINK, "_self");
+           }}
             className=" w-fit mx-auto rounded-md bg-opacity-70 px-14 py-3 hover:bg-opacity-100 text-stone-200 bg-fadeochre shadow-lg ease-out duration-150 transition-all hover:scale-105 font-opensans"
           >
             Create a piece
