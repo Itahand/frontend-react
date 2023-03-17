@@ -4,6 +4,7 @@ import piece from "../assets/piece.png";
 import certified from "../assets/certified.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import GridLoader from "react-spinners/GridLoader";
 import { fadeInDown, fadeInUp, staggerContainer } from "./variants";
 function Listing() {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
@@ -12,16 +13,18 @@ function Listing() {
   });
   const [salesEnded, setSalesEnded] = useState(false);
   const [listingData, setListingData] = useState({});
+  const [loading,setLoading]=useState(false);
   const navigate = useNavigate();
   let { listingId } = useParams();
   useEffect(() => {
+    setLoading(true);
     fetchPieceDetails();
 
           document.querySelector('[property="og:title"]').setAttribute('content',"#"+listingId);
           document.querySelector('[name="twitter:title"]').setAttribute('content', "#"+listingId);
           document.querySelector('[property="og:image"]').setAttribute('content', ""+process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
           document.querySelector('[name="twitter:image"]').setAttribute('content', process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
-  
+          setLoading(false)
   }, []);
   const fetchPieceDetails = async () => {
     console.log(listingId);
@@ -69,9 +72,16 @@ function Listing() {
       });
   };
   return (
-    <> 
+    <> {loading&&<div className="flex justify-center mt-64"><GridLoader
+        
+    color={'#A4907C'}
+    loading={loading}
+    size={30}
+    aria-label="Loading Spinner"
+    data-testid="loader"
+  /></div>}
 
-    { listingData.id && 
+    { !loading&&listingData.id && 
 
       
       <motion.div

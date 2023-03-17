@@ -4,14 +4,18 @@ import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import { fadeInDown, fadeInUp, staggerContainer } from "./variants";
 import { useLocation, useNavigate } from "react-router-dom";
+import GridLoader from "react-spinners/GridLoader";
 function Purchase() {
+  const [loading, setLoading] = useState(false);
   const { state } = useLocation();
   const { listingId } = state; // Read values passed on state
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const navigate = useNavigate();
 
   useEffect(()=>{
+    setLoading(true);
     fetchPieceDetails(listingId);
+    setLoading(false);
   },[])
   const [listingData, setListingData] = useState({});
 
@@ -48,7 +52,14 @@ function Purchase() {
   });
   return (
     <>
-      <motion.div
+      {loading?<div className="flex justify-center mt-64"><GridLoader
+        
+      color={'#A4907C'}
+      loading={loading}
+      size={30}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+    /></div>:<motion.div
         variants={staggerContainer}
         initial="initial"
         animate="animate"
@@ -90,7 +101,7 @@ function Purchase() {
           View my pieces
         </button>
       </motion.div>}
-      </motion.div>
+      </motion.div>}
     </>
   );
 }
