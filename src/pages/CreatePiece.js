@@ -9,8 +9,9 @@ import AlertBox from "../components/AlertBox";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { fadeInDown, fadeInUp, staggerContainer } from "./variants";
-
+import GridLoader from "react-spinners/GridLoader";
 function CreatePiece() {
+  const [loading,setLoading]=useState(false);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1224px)",
@@ -50,6 +51,7 @@ function CreatePiece() {
   const [authenticate, setAuthincate] = useState(false);
   const [userData, setUserData] = useState({});
   useEffect(() => {
+    setLoading(true);
     if (localStorage.getItem("fromPage") != "" && localStorage.getItem("listingId") !="") {
          navigate("/buy");
        }
@@ -69,17 +71,26 @@ function CreatePiece() {
       })
       .then((responseJson) => {
         //console.log(responseJson.user)
+        setLoading(false)
         setAuthincate(true);
         setUserData(responseJson.user);
       })
       .catch((error) => {
+        setLoading(false)
         navigate("/");
       });
   }, []);
   return (
     <>
      
-        <motion.div variants={staggerContainer} initial="initial" animate="animate">
+        {loading?<div className="flex justify-center mt-64"><GridLoader
+        
+        color={'#A4907C'}
+        loading={loading}
+        size={30}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      /></div>:<motion.div variants={staggerContainer} initial="initial" animate="animate">
           <AlertBox popupParam={popupParam} setPopupParam={setPopupParam} />
 
           <motion.nav variants={fadeInUp} className=" flex flex-wrap items-center font-opensans justify-between  w-full py-4 md:py-0 px-5 lg:py-4 lg:px-20  ">
@@ -148,7 +159,7 @@ function CreatePiece() {
             </motion.footer>
             }
           </motion.div>
-        </motion.div>
+        </motion.div>}
       
     </>
   );

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive'
-
+import GridLoader from "react-spinners/GridLoader";
 import create from '../assets/create.png'
 import arrowRight from '../assets/arrowRight.png'
 import Payments from '../assets/Payments.png'
@@ -16,10 +16,11 @@ import { fadeInDown, fadeInUp, staggerContainer } from "./variants";
 function Menu() {
     const navigate = useNavigate();
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
-
+    const [loading,setLoading]=useState(false);
     const [authenticate, setAuthincate] = useState(false)
     const [userData, setUserData] = useState({})
     useEffect(() => {
+        setLoading(true);
         fetch(process.env.REACT_APP_BACKEND_URL, {
             method: "GET",
             credentials: "include",
@@ -37,15 +38,23 @@ function Menu() {
                 console.log(responseJson.user)
                 setAuthincate(true)
                 setUserData(responseJson.user)
+                setLoading(false)
 
             })
             .catch(error => {
                 navigate('/')
-
+                setLoading(false)
             });
     }, [])
 
-    return (<motion.div>
+    return (<>{loading?<div className="flex justify-center mt-64"><GridLoader
+        
+    color={'#A4907C'}
+    loading={loading}
+    size={30}
+    aria-label="Loading Spinner"
+    data-testid="loader"
+  /></div>:<motion.div>
 
       
 
@@ -133,12 +142,12 @@ function Menu() {
 
             </div>
 
-        </motion.div>
+        </motion.div>}
 
         
 
 
-
+</>
 
 
     );
