@@ -4,7 +4,7 @@ import message from "../assets/message.png";
 import mail from "../assets/mail.png";
 import twitter from "../assets/twitter.png";
 import { useMediaQuery } from "react-responsive";
-
+import GridLoader from "react-spinners/GridLoader";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import AlertBox from "../components/AlertBox";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import Menu from "./Menu";
 import { Slide } from "@mui/material";
 
 function Pieces() {
+  const [loading, setLoading] = useState(false);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const navigate = useNavigate();
   const [input, setInput] = useState("");
@@ -51,6 +52,7 @@ function Pieces() {
   const [authenticate, setAuthincate] = useState(false);
   const [userData, setUserData] = useState({});
   useEffect(() => {
+    setLoading(true);
     fetch(process.env.REACT_APP_BACKEND_URL, {
       method: "GET",
       credentials: "include",
@@ -65,11 +67,13 @@ function Pieces() {
         throw new Error("failed to authenticate user");
       })
       .then((responseJson) => {
+        setLoading(false);
         setAuthincate(true);
         setUserData(responseJson.user);
         fetchPieceDetails(responseJson.user.twitterId);
       })
       .catch((error) => {
+        setLoading(false);
         navigate("/login");
       });
   }, []);
@@ -97,7 +101,14 @@ function Pieces() {
   };
   return (
     <>
-
+{loading?<div className="flex justify-center mt-64"><GridLoader
+        
+color={'#A4907C'}
+loading={loading}
+size={30}
+aria-label="Loading Spinner"
+data-testid="loader"
+/></div>:<div>
       <AlertBox popupParam={popupParam} setPopupParam={setPopupParam} />
 
       <nav className=" flex flex-wrap items-center font-Montserrat justify-between  w-full py-4 md:py-0 px-5 lg:py-4 lg:px-20  ">
@@ -140,12 +151,12 @@ function Pieces() {
 
               {pieceByMe.map((obj, i) => {
                    
-                 return <li key={i} className="w-full  grid   flex border-[#D3C5B0] py-3 border-b    ">
+                 return <li key={i} className="w-full     flex border-[#D3C5B0] py-3 border-b    ">
                     <div className=" leading-none row flex w-full font-Lora font-[400] text-[16px] ">
 
                       {obj.pieceText}
                     </div>
-                    <div className=" row flex w-full text-[14px] font-[200] mt-2 font-Montserrat justify-between flex ">
+                    <div className=" row flex w-full text-[14px] font-[200] mt-2 font-Montserrat justify-between  ">
                       <div className=""> @{obj.authorName} • {obj.createdAt} </div>
                       <div className=""> {obj.totalPiecesCollected}</div>
                     </div>
@@ -164,7 +175,7 @@ function Pieces() {
                   <div className=" leading-none row flex w-full font-Lora font-[400] text-[16px] ">
                     I will become an Olympic swimmer someday.
                   </div>
-                  <div className=" row flex w-full text-[14px] font-[200] mt-2 font-Montserrat justify-between flex ">
+                  <div className=" row flex w-full text-[14px] font-[200] mt-2 font-Montserrat justify-between  ">
                     <div className=""> @iamcardib • 1/1/2023 </div>
                     <div className=""> 1/443 </div>
                   </div>
@@ -174,7 +185,7 @@ function Pieces() {
                     Anyone who holds this on December 25th, 2024 will be
                     airdropped a fun surprise.
                   </div>
-                  <div className=" row flex w-full text-[14px] font-[200] mt-2 font-Montserrat justify-between flex ">
+                  <div className=" row flex w-full text-[14px] font-[200] mt-2 font-Montserrat justify-between  ">
                     <div className=""> @beeple • 1/1/2023 </div>
                     <div className=""> 1/2,100 </div>
                   </div>
@@ -183,7 +194,7 @@ function Pieces() {
                   <div className=" leading-none row flex w-full font-Lora font-[400] text-[16px] ">
                     Should I name my next rocket “Spacey Spacerson?
                   </div>
-                  <div className=" row flex w-full text-[14px] font-[200] mt-2 font-Montserrat justify-between flex ">
+                  <div className=" row flex w-full text-[14px] font-[200] mt-2 font-Montserrat justify-between  ">
                     <div className=""> @elonmusk • 1/1/2023 </div>
                     <div className=""> 1/2,100 </div>
                   </div>
@@ -192,7 +203,9 @@ function Pieces() {
             </div>
           </Slide>
         </div>
+        
       )}
+      </div>}
     </>
   );
 }

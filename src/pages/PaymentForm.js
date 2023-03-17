@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import GridLoader from "react-spinners/GridLoader";
 import {
     CardNumberElement,
     CardCvcElement,
@@ -31,6 +32,11 @@ const CARD_OPTIONS = {
 
 
 export default function PaymentForm({amount,listingId,twitterId}) {
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState("")
+    const stripe = useStripe()
+    const elements = useElements()
+    const [loading,setLoading]=useState(false);
 
     const navigate = useNavigate()
 
@@ -43,6 +49,7 @@ export default function PaymentForm({amount,listingId,twitterId}) {
 
         if (!error) {
             try {
+                setLoading(true)
                 const { id } = paymentMethod
                 const response = await axios.post(process.env.REACT_APP_BACKEND_URL + "stripe/payment", {
                     amount: amount,
@@ -53,6 +60,7 @@ export default function PaymentForm({amount,listingId,twitterId}) {
 
 
                 if (response.data.success) {
+                    setLoading(false)
                     console.log("Successful Payment");
                     setSuccess(true);
                     setTimeout(()=>{
@@ -62,6 +70,7 @@ export default function PaymentForm({amount,listingId,twitterId}) {
                 }
 
             } catch (error) {
+                setLoading(false)
                 console.log("Error", error);
             }
         } else {
@@ -69,10 +78,7 @@ export default function PaymentForm({amount,listingId,twitterId}) {
         }
     }
 
-    const [success, setSuccess] = useState(false)
-    const [error, setError] = useState("")
-    const stripe = useStripe()
-    const elements = useElements()
+    
 
     return (
         <>
@@ -104,10 +110,18 @@ export default function PaymentForm({amount,listingId,twitterId}) {
                     </div>
                 </form> : 
                 //NFT minting logic 
-                
-                <div className="payment-success">
+                <div>
+                {loading?<div className="flex justify-center mt-64"><GridLoader
+        
+                color={'#A4907C'}
+                loading={loading}
+                size={30}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              /></div>:<div className="payment-success">
                     <h2 className="font-opensans font-bold ml-4">Payment successful</h2>
                     <h3 className="font-opensans font-bold ml-4 mt-3">Thank you for your payment</h3>
+                </div>}
                 </div>
             }
         </>

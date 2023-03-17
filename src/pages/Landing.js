@@ -58,7 +58,7 @@ function Landing() {
               </h1>
 
               <p className="mt-10 ml-6 text-md font-opensans text-darkbrown">
-                Turn your tweets innto collectibles in seconds.
+                Turn your tweets into collectibles in seconds.
               </p>
               
         <button

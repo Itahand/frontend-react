@@ -8,6 +8,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PaymentForm from "./PaymentForm";
 import { motion } from "framer-motion";
+import GridLoader from "react-spinners/GridLoader";
 import { fadeInDown, fadeInUp, staggerContainer } from "./variants";
 const stripePromise = loadStripe(
   "pk_test_51Mg5OdSF3WP5DzSyRT0uf0LrF4AD0qfykJqnUdp0hTlGJOLLiOiEhNQ7zTmRP2xhFrbvix10LoZ66THIOJVU9ERI00Yz6Luprs"
@@ -20,7 +21,9 @@ function Buy() {
 
   let { id } = useParams();
   let { state } = useLocation();
+  const [loading,setLoading]=useState(false);
   useEffect(() => {
+    setLoading(true);
     fetch(process.env.REACT_APP_BACKEND_URL, {
       method: "GET",
       credentials: "include",
@@ -35,15 +38,18 @@ function Buy() {
         throw new Error("failed to authenticate user");
       })
       .then((responseJson) => {
+        setLoading(false)
         setAuthincate(true);
         setUserData(responseJson.user);
         const listingId = id;
         console.log(listingId)
         fetchPieceDetails(listingId);
+        
       })
       .catch((error) => {
         console.log(error);
-        console.log(state)
+        console.log(state);      
+         setLoading(false);
         navigate("/login",{ state: { from: 'listing',to:'buy',listingId:id } })
       });
    
@@ -81,7 +87,15 @@ function Buy() {
   };
   return (
     <>
-{ listingData && (
+    {loading && <div className="flex justify-center mt-64"><GridLoader
+        
+    color={'#A4907C'}
+    loading={loading}
+    size={30}
+    aria-label="Loading Spinner"
+    data-testid="loader"
+  /></div>}
+{ !loading&&listingData && (
   
         <motion.div
           variants={staggerContainer}
