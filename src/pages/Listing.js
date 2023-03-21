@@ -21,14 +21,14 @@ function Listing() {
   useEffect(() => {
     setLoading(true);
     fetchPieceDetails();
-
+let link =process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId
           document.querySelector('[property="og:title"]').setAttribute('content',"#"+listingId);
           document.querySelector('[name="twitter:title"]').setAttribute('content', "#"+listingId);
-          document.querySelector('[property="og:image"]').setAttribute('content', ""+process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
-          document.querySelector('[name="twitter:image"]').setAttribute('content', process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
-          document.querySelector('[name="twitter:url"]').setAttribute('content', process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
+          document.querySelector('[property="og:image"]').setAttribute('content', link);
+          document.querySelector('[name="twitter:image"]').setAttribute('content',link);
+          document.querySelector('[name="twitter:url"]').setAttribute('content', link);
           
-  }, []);
+  }, [listingId]);
   const fetchPieceDetails = async () => {
     console.log(listingId);
     fetch(process.env.REACT_APP_BACKEND_URL + "piece/listingPiece", {
@@ -80,180 +80,181 @@ function Listing() {
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="My Page Title" />
         <meta property="twitter:description" content="My Page Description" />
-        <meta property="twitter:image" content={ process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId} />
-      </Helmet>
-    {loading&&<div className="flex justify-center mt-64"><GridLoader
-        
-    color={'#A4907C'}
-    loading={loading}
-    size={30}
-    aria-label="Loading Spinner"
-    data-testid="loader"
-  /></div>}
-
-    { !loading&&listingData.id && 
-
-      
-      <motion.div
-       
-        variants={staggerContainer}
-       
-        initial="initial"
-       
-        animate="animate"
-      
-      >
-        <div className=" flex justify-between w-full px-6 py-8">
-          <motion.div variants={fadeInDown}>
-            
-            <img src={piece} alt="logo" className="h-7 w-20" />
+          <meta property="twitter:image" content={ process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId} />
+          <meta property="og:image" content={ process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId} />
+        </Helmet>
+      {loading&&<div className="flex justify-center mt-64"><GridLoader
           
-          </motion.div>
-          <div className=" flex gap-5">
-            <motion.a
-             
-              variants={fadeInDown}
-              className=" cursor-pointer hover:scale-105 ease-out transition-all"
-              onClick={() =>{  sessionStorage.setItem("from","buy")
-              sessionStorage.setItem("listingId",listingId)
-              navigate("/login")
-            }}
-            >
-              <p className=" font-opensans text-lg font-bold lg:mr-5">Log in</p>
-            </motion.a>
-          </div>
-        </div>
+      color={'#A4907C'}
+      loading={loading}
+      size={30}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+    /></div>}
 
-        {isTabletOrMobile && (
-          <div variants={fadeInUp} className=" flex object-none scale-150 transform-unset justify-center mt-6 p-5 overflow-hidden">
-            <img className="  w-full  " src={listingData.image} alt="nft" />
-          </div>
-        )}
+      { !loading&&listingData.id && 
 
-
-        {isDesktopOrLaptop && (
-          <div className="flex gap-24 justify-center">
-          <motion.div variants={fadeInUp} className=" flex justify-center mt-6 p-5 overflow-hidden">
-            <img className="h-[40vh] w-full  " src={listingData.image} alt="nft" />
-          </motion.div>
-            <div>
-            <motion.div
-          variants={fadeInUp}
-          className=" mt-10 mx-5 mb-4 flex justify-between lg:justify-center lg:gap-24"
+        
+        <motion.div
+        
+          variants={staggerContainer}
+        
+          initial="initial"
+        
+          animate="animate"
+        
         >
-          <p className="font-opensans text-md font-bold text-darkbrown">
-            Piece {"#"+listingData.id}
-          </p>
-          <div className="flex ">
-            <img src={certified} alt="certified" className=" h-4 w-4 mt-1" />
-            <p className=" font-opensans font-bold ml-1 text-md text-fadebrown">
-              Certified
-            </p>
-          </div>
-        </motion.div>
-              {!salesEnded && (
-                <div>
-                  <motion.div
-                    variants={fadeInUp}
-                    className="flex justify-center mt-4 -ml-14"
-                  >
-                   <button
-                onClick={() => {
-                 sessionStorage.setItem("from","buy")
-                 sessionStorage.setItem("listingId",listingId)
-                  navigate("/buy/"+listingId);
-                }}
-                className=" hover:scale-105 transition-all ease-out font-opensans w-fit mx-auto rounded-md bg-opacity-70 py-3 w-full hover:bg-opacity-100 text-stone-200 bg-fadeochre"
+          <div className=" flex justify-between w-full px-6 py-8">
+            <motion.div variants={fadeInDown}>
+              
+              <img src={piece} alt="logo" className="h-7 w-20" />
+            
+            </motion.div>
+            <div className=" flex gap-5">
+              <motion.a
+              
+                variants={fadeInDown}
+                className=" cursor-pointer hover:scale-105 ease-out transition-all"
+                onClick={() =>{  sessionStorage.setItem("from","buy")
+                sessionStorage.setItem("listingId",listingId)
+                navigate("/login")
+              }}
               >
-                      Collect (${listingData.amount})
-                    </button>
-                  </motion.div>
-                  <motion.div
-                    variants={fadeInUp}
-                    className="mt-5 lg:text-center -ml-12"
-                  >
-                    <p className="-ml-3 font-opensans text-md text-darkbrown ">
-                      3hr 15 min left | {listingData.totalPiecesCollected} Collected
-                    </p>
-                    <div className="lg:mx-auto  mx-5 border-t-4 w-60 rounded-md border-white"></div>
-                    <div className=" ml-20 mx-5 -mt-1 border-t-4 w-28 rounded-md border-fadebrown"></div>
-                  </motion.div>
-                </div>
-              )}
-
-              {salesEnded && (
-                <motion.div variants={fadeInUp} className="mt-3">
-                  <p className="lg:mx-auto ml-6 font-opensans text-md text-darkbrown ">
-                    Sale Ended | {listingData.totalPiecesCollected} Collected
-                  </p>
-                </motion.div>
-              )}
+                <p className=" font-opensans text-lg font-bold lg:mr-5">Log in</p>
+              </motion.a>
             </div>
           </div>
-        )}
 
-        {isTabletOrMobile && (
-          <motion.div
+          {isTabletOrMobile && (
+            <div variants={fadeInUp} className=" flex object-none scale-150 transform-unset justify-center mt-6 p-5 overflow-hidden">
+              <img className="  w-full  " src={listingData.image} alt="nft" />
+            </div>
+          )}
+
+
+          {isDesktopOrLaptop && (
+            <div className="flex gap-24 justify-center">
+            <motion.div variants={fadeInUp} className=" flex justify-center mt-6 p-5 overflow-hidden">
+              <img className="h-[40vh] w-full  " src={listingData.image} alt="nft" />
+            </motion.div>
+              <div>
+              <motion.div
             variants={fadeInUp}
-            className=" mt-7 ml-8 mb-7 flex justify-between lg:justify-center lg:gap-24"
+            className=" mt-10 mx-5 mb-4 flex justify-between lg:justify-center lg:gap-24"
           >
             <p className="font-opensans text-md font-bold text-darkbrown">
-              Piece #{listingData.id} 
+              Piece {"#"+listingData.id}
             </p>
-            <div className="flex pr-8">
-              <img
-                src={certified}
-                alt="certified"
-                className=" h-4 w-4 ml-3 mt-1"
-              />
+            <div className="flex ">
+              <img src={certified} alt="certified" className=" h-4 w-4 mt-1" />
               <p className=" font-opensans font-bold ml-1 text-md text-fadebrown">
                 Certified
               </p>
             </div>
           </motion.div>
-        )}
-        {!salesEnded && isTabletOrMobile && (
-          <div>
-            <motion.div
-              variants={fadeInUp}
-              className="flex justify-center mt-4"
-            >
-              <button
-                onClick={() => {
-                
-                 
+                {!salesEnded && (
+                  <div>
+                    <motion.div
+                      variants={fadeInUp}
+                      className="flex justify-center mt-4 -ml-14"
+                    >
+                    <button
+                  onClick={() => {
                   sessionStorage.setItem("from","buy")
                   sessionStorage.setItem("listingId",listingId)
-                   navigate("/buy/"+listingId);
-            }}
-                className=" hover:scale-105 transition-all ease-out font-opensans w-fit mx-auto rounded-md bg-opacity-70 px-36 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre"
-              >
-                Collect (${listingData.amount})
-              </button>
-            </motion.div>
-            <motion.div variants={fadeInUp} className="mt-5 lg:text-center">
-              <p className="ml-6 font-opensans text-md text-darkbrown ">
-                3hr 15 min left | {listingData.totalPiecesCollected} Collected
+                    navigate("/buy/"+listingId);
+                  }}
+                  className=" hover:scale-105 transition-all ease-out font-opensans w-fit mx-auto rounded-md bg-opacity-70 py-3 w-full hover:bg-opacity-100 text-stone-200 bg-fadeochre"
+                >
+                        Collect (${listingData.amount})
+                      </button>
+                    </motion.div>
+                    <motion.div
+                      variants={fadeInUp}
+                      className="mt-5 lg:text-center -ml-12"
+                    >
+                      <p className="-ml-3 font-opensans text-md text-darkbrown ">
+                        3hr 15 min left | {listingData.totalPiecesCollected} Collected
+                      </p>
+                      <div className="lg:mx-auto  mx-5 border-t-4 w-60 rounded-md border-white"></div>
+                      <div className=" ml-20 mx-5 -mt-1 border-t-4 w-28 rounded-md border-fadebrown"></div>
+                    </motion.div>
+                  </div>
+                )}
+
+                {salesEnded && (
+                  <motion.div variants={fadeInUp} className="mt-3">
+                    <p className="lg:mx-auto ml-6 font-opensans text-md text-darkbrown ">
+                      Sale Ended | {listingData.totalPiecesCollected} Collected
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {isTabletOrMobile && (
+            <motion.div
+              variants={fadeInUp}
+              className=" mt-7 ml-8 mb-7 flex justify-between lg:justify-center lg:gap-24"
+            >
+              <p className="font-opensans text-md font-bold text-darkbrown">
+                Piece #{listingData.id} 
               </p>
-              <div className="lg:mx-auto  mx-5 border-t-4 w-60 rounded-md border-white"></div>
-              <div className=" lg:mx-auto lg:pr-4 mx-5 -mt-1 border-t-4 w-28 rounded-md border-fadebrown"></div>
+              <div className="flex pr-8">
+                <img
+                  src={certified}
+                  alt="certified"
+                  className=" h-4 w-4 ml-3 mt-1"
+                />
+                <p className=" font-opensans font-bold ml-1 text-md text-fadebrown">
+                  Certified
+                </p>
+              </div>
             </motion.div>
-          </div>
-        )}
+          )}
+          {!salesEnded && isTabletOrMobile && (
+            <div>
+              <motion.div
+                variants={fadeInUp}
+                className="flex justify-center mt-4"
+              >
+                <button
+                  onClick={() => {
+                  
+                  
+                    sessionStorage.setItem("from","buy")
+                    sessionStorage.setItem("listingId",listingId)
+                    navigate("/buy/"+listingId);
+              }}
+                  className=" hover:scale-105 transition-all ease-out font-opensans w-fit mx-auto rounded-md bg-opacity-70 px-36 py-4 hover:bg-opacity-100 text-stone-200 bg-fadeochre"
+                >
+                  Collect (${listingData.amount})
+                </button>
+              </motion.div>
+              <motion.div variants={fadeInUp} className="mt-5 lg:text-center">
+                <p className="ml-6 font-opensans text-md text-darkbrown ">
+                  3hr 15 min left | {listingData.totalPiecesCollected} Collected
+                </p>
+                <div className="lg:mx-auto  mx-5 border-t-4 w-60 rounded-md border-white"></div>
+                <div className=" lg:mx-auto lg:pr-4 mx-5 -mt-1 border-t-4 w-28 rounded-md border-fadebrown"></div>
+              </motion.div>
+            </div>
+          )}
 
-        {salesEnded && isTabletOrMobile && (
-          <motion.div variants={fadeInUp} className="mt-3">
-            <p className="lg:mx-auto ml-6 font-opensans text-md text-darkbrown ">
-              Sale Ended | {listingData.totalPiecesCollected} Collected
-            </p>
-          </motion.div>
-        )}
-      </motion.div>
+          {salesEnded && isTabletOrMobile && (
+            <motion.div variants={fadeInUp} className="mt-3">
+              <p className="lg:mx-auto ml-6 font-opensans text-md text-darkbrown ">
+                Sale Ended | {listingData.totalPiecesCollected} Collected
+              </p>
+            </motion.div>
+          )}
+        </motion.div>
+        
+      }
+      </>
       
-    }
-    </>
-    
-  );
-}
+    );
+  }
 
-export default Listing;
+  export default Listing;
