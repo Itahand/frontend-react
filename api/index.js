@@ -6,9 +6,9 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "build")))
+app.use(express.static(path.join(process.cwd(), "build")))
 
-app.get("/listing/:id", (req, res) => {
+app.get("/api/listing/:id", (req, res) => {
   let listingId = req.params.id
   const filePath = path.resolve(process.cwd(), "./build", "index.html");
   fs.readFile(filePath, "utf8", (err, data) => {
@@ -26,9 +26,8 @@ app.get("/listing/:id", (req, res) => {
 });
  
 
-app.get("*", (req, res) => {
-  const filePath = path.join(__dirname, "./build", "index.html");
-  console.log("routed") 
+app.get("/api", (req, res) => {
+  const filePath = path.resolve(process.cwd(), "./build", "index.html");
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
       return console.log(err);

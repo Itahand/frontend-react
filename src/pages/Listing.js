@@ -20,11 +20,11 @@ function Listing() {
   const [loading,setLoading]=useState(true);
   const navigate = useNavigate();
   useEffect(() => {
-    document.querySelector('[property="og:title"]').setAttribute('content',"#"+listingId);
-    document.querySelector('[name="twitter:title"]').setAttribute('content', "#"+listingId);
-    document.querySelector('[property="og:image"]').setAttribute('content', link);
-    document.querySelector('[name="twitter:image"]').setAttribute('content',link);
-    document.querySelector('[name="twitter:url"]').setAttribute('content', link);
+    // document.querySelector('[property="og:title"]').setAttribute('content',"#"+listingId);
+    // document.querySelector('[name="twitter:title"]').setAttribute('content', "#"+listingId);
+    // document.querySelector('[property="og:image"]').setAttribute('content', link);
+    // document.querySelector('[name="twitter:image"]').setAttribute('content',link);
+    // document.querySelector('[name="twitter:url"]').setAttribute('content', link);
     setLoading(true);
     fetchPieceDetails();
 
