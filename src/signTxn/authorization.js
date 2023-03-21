@@ -61,7 +61,7 @@ const authorizationFunction = async (account) => {
   };
 };
 
-module.exports = {
-  authorizationFunction,
-  // authorizationFunctionProposer,
-};
+// module.exports = {
+//   authorizationFunction,
+//   // authorizationFunctionProposer,
+// };
