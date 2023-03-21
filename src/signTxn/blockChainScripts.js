@@ -71,6 +71,6 @@ const mintNFT = async (metadataId, address) => {
   });
 };
 
-module.exports = {
-  mintNFT,
-};
+// module.exports = {
+//   mintNFT,
+// };
