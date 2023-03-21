@@ -6,6 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import GridLoader from "react-spinners/GridLoader";
 import { fadeInDown, fadeInUp, staggerContainer } from "./variants";
+import { Helmet } from 'react-helmet';
+
 function Listing() {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const isDesktopOrLaptop = useMediaQuery({
@@ -24,6 +26,7 @@ function Listing() {
           document.querySelector('[name="twitter:title"]').setAttribute('content', "#"+listingId);
           document.querySelector('[property="og:image"]').setAttribute('content', ""+process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
           document.querySelector('[name="twitter:image"]').setAttribute('content', process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
+          document.querySelector('[name="twitter:url"]').setAttribute('content', process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId);
           
   }, []);
   const fetchPieceDetails = async () => {
@@ -72,7 +75,14 @@ function Listing() {
       });
   };
   return (
-    <> {loading&&<div className="flex justify-center mt-64"><GridLoader
+    <> 
+    <Helmet>
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content="My Page Title" />
+        <meta property="twitter:description" content="My Page Description" />
+        <meta property="twitter:image" content={ process.env.REACT_APP_BACKEND_URL+"piece/previewImage/"+listingId} />
+      </Helmet>
+    {loading&&<div className="flex justify-center mt-64"><GridLoader
         
     color={'#A4907C'}
     loading={loading}

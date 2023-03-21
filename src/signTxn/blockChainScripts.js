@@ -1,7 +1,4 @@
 /** @format */
-
-require("dotenv").config();
-
 const fcl = require("@onflow/fcl");
 const { authorizationFunction } = require("./authorization");
 
