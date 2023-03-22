@@ -1,7 +1,4 @@
 /** @format */
-
-require("dotenv").config();
-
 const fcl = require("@onflow/fcl");
 const { authorizationFunction } = require("./authorization");
 
@@ -74,6 +71,6 @@ const mintNFT = async (metadataId, address) => {
   });
 };
 
-module.exports = {
-  mintNFT,
-};
+// module.exports = {
+//   mintNFT,
+// };

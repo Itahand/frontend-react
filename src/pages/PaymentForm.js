@@ -71,6 +71,15 @@ export default function PaymentForm({ amount, listingId, twitterId }) {
           setLoading(false);
           console.log("Successful Payment");
           setSuccess(true);
+
+
+        //NFT minting logic
+        //1. I need to receive the connected user's wallet account(which is connected to their Twitter ID)
+        //2. Use that wallet to
+        //mintNFT(metadataId, address)
+
+
+          //sending user to purchased page post success payment
           setTimeout(() => {
             navigate("/purchase", { state: { listingId: listingId } });
           }, 2000);
@@ -117,12 +126,9 @@ export default function PaymentForm({ amount, listingId, twitterId }) {
           </div>
         </form>
       ) : (
-        //NFT minting logic
-        // 1. I need to receive the connected user's wallet account(which is connected to their Twitter ID)
-        // 2. Use that wallet to
-        //{mintNFT(metadataId, address)}
+   
         <div>
-          {loading ? (
+          {loading  ? (
             <div className='flex justify-center mt-64'>
               <GridLoader
                 color={"#A4907C"}
@@ -132,7 +138,7 @@ export default function PaymentForm({ amount, listingId, twitterId }) {
                 data-testid='loader'
               />
             </div>
-          ) : (
+          ) : success ?(
             <div className='payment-success'>
               <h2 className='font-opensans font-bold ml-4'>
                 Payment successful
@@ -141,7 +147,17 @@ export default function PaymentForm({ amount, listingId, twitterId }) {
                 Thank you for your payment
               </h3>
             </div>
-          )}
+          ) :(
+            <div className='payment-success'>
+              <h2 className='font-opensans font-bold ml-4'>
+                Payment Failed
+              </h2>
+              
+            </div>
+          )
+        
+        
+        }
         </div>
       )}
     </>

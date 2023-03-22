@@ -1,6 +1,5 @@
 /** @format */
 
-require("dotenv").config();
 
 const { SHA3 } = require("sha3");
 const { sansPrefix, withPrefix } = require("@onflow/util-address");
@@ -62,7 +61,7 @@ const authorizationFunction = async (account) => {
   };
 };
 
-module.exports = {
-  authorizationFunction,
-  // authorizationFunctionProposer,
-};
+// module.exports = {
+//   authorizationFunction,
+//   // authorizationFunctionProposer,
+// };
