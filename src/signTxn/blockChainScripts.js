@@ -43,6 +43,6 @@ const mintNFT = async (twitterId, tweetText, address) => {
   return result;
 };
 
-module.exports = {
-  mintNFT,
-};
+// module.exports = {
+//   mintNFT,
+// };
